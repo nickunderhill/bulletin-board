@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: common_header(~{::title})">
+    <title>Posts</title>
+</head>
+
+<body>
+<div th:replace="fragments/menu :: nav"></div>
+
+<div class="container main">
+    <h2 class="text-center">Posts</h2>
+    <div class="card-columns">
+        <div th:each="post : ${posts}" class="card">
+            <img class="card-img-top" th:src="${(post.image != null && !#strings.isEmpty(post.image)) ? post.image : '/img/default.png'}" alt="post image"/>
+            <div class="card-body">
+                <h5 class="card-title" th:text="${post.title}"></h5>
+                <p class="card-text" th:text="${post.description}"></p>
+                <p class="card-text">
+                <div class="card-bottom">
+                    <small class="text-muted" th:text="${#temporals.format(post.whenAdd, 'dd-MM-yyyy HH:mm')}"></small>
+                    <small class="text-muted" th:text="${post.author.firstName} + ' ' + ${post.author.lastName}"></small>
+                </div>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

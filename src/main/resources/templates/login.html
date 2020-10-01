@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: common_header(~{::title})">
+    <title>Login</title>
+</head>
+
+<body>
+<div th:replace="fragments/menu :: nav"></div>
+
+<div class="container login">
+    <div class="shadow-box">
+        <form th:action="@{/login}" class="needs-validation" novalidate="" method="post">
+            <div class="d-flex justify-content-center row">
+                <h1 class="h3 font-weight-normal">Log in</h1>
+            </div>
+            <div class="form-group">
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">Invalid email or password</div>
+                </div>
+                <div th:if="${param.logout}">
+                    <div class="alert alert-danger">You have been logged out</div>
+                </div>
+                <div th:if="${message}">
+                    <div class="alert alert-danger" th:text="${message}"></div>
+                </div>
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+        <br>
+        <div class="etc-login-form text-center">
+            <p>Don't have an account? <a href="/registration">Register here</a></p>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

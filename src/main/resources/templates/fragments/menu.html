@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">
+            <img src="/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="Bulletin Board Logo" />
+            Bulletin Board
+        </a>
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item" th:classappend="${#request.requestURI.equals('/') ? 'active':''}">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item" th:classappend="${#request.requestURI.startsWith('/dashboard') ? 'active':''}">
+                    <a sec:authorize="isAuthenticated()" class="nav-link" href="/dashboard">Dashboard</a>
+                </li>
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <a sec:authorize="isAnonymous()" th:href="${'/login'}" th:style="${#request.requestURI.startsWith('/login') ? 'display:none':''}"
+                   class="btn btn-outline-primary my-2 my-sm-0" type="submit">Log In</a>
+                <a sec:authorize="isAnonymous()" th:href="${'/registration'}" th:style="${#request.requestURI.startsWith('/registration') ? 'display:none':''}"
+                   class="btn btn-outline-primary my-2 my-sm-0" type="submit">Register</a>
+                <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="form-inline">
+                    <div class="auth-email" th:text="${#authentication.principal.username}"></div>
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Log Out</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

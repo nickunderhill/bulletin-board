@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: common_header(~{::title})">
+    <title>New post</title>
+</head>
+
+<body>
+<div th:replace="fragments/menu :: nav"></div>
+
+<div class="container main">
+    <h2 class="text-center">New post</h2>
+    <div class="post">
+        <form th:action="@{/posts/new}" th:object="${post}" method="post">
+            <div class="form-group">
+                <label for="postTitle">Title</label>
+                <input type="text" class="form-control" id="postTitle" placeholder="Enter post title"
+                       th:field="*{title}">
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="validation-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="postDescription">Description</label>
+                <textarea class="form-control" id="postDescription" rows="4" maxlength="200"
+                          placeholder="Enter post description (max 200 symbols)" th:field="*{description}"></textarea>
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                     class="validation-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">Image URL</label>
+                <input type="url" class="form-control" id="imageUrl" placeholder="Provide image url"
+                       th:field="*{image}">
+                <div th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="validation-error"></div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

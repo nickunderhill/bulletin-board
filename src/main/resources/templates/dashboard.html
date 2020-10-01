@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: common_header(~{::title})">
+    <title>Dashboard</title>
+</head>
+
+<body>
+<div th:replace="fragments/menu :: nav"></div>
+
+<div class="container-lg dashboard">
+
+    <div class="dashboard-item shadow-box">
+        <h2 class="text-center">Edit profile</h2>
+        <form th:action="@{/users/edit}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" th:field="*{email}">
+                <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="validation-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="validation-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" th:field="*{password}">
+                <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-error"></div>
+            </div>
+            <input type="hidden" th:field="*{id}" id="Id">
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Submit">Edit</button>
+        </form>
+    </div>
+
+    <div class="dashboard-item shadow-box">
+        <h2 class="text-center">New post</h2>
+        <form th:action="@{/posts/new}" th:object="${post}" method="post">
+            <div class="form-group">
+                <label for="postTitle">Title</label>
+                <input type="text" class="form-control" id="postTitle" placeholder="Enter post title"
+                       th:field="*{title}">
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="validation-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="postDescription">Description</label>
+                <textarea class="form-control" id="postDescription" rows="4" maxlength="200"
+                          placeholder="Enter post description (max 200 symbols)" th:field="*{description}"></textarea>
+                <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                     class="validation-error"></div>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl">Image URL</label>
+                <input type="url" class="form-control" id="imageUrl" placeholder="Provide image url"
+                       th:field="*{image}">
+                <div th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="validation-error"></div>
+            </div>
+            <button type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Submit">Submit</button>
+        </form>
+    </div>
+
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
