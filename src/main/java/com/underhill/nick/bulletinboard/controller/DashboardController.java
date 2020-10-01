@@ -31,6 +31,6 @@ public class DashboardController {
         String currentUserLogin = request.getUserPrincipal().getName();
         model.addAttribute("user", user.getId() != null ? user : userService.getUserByEmail(currentUserLogin));
         model.addAttribute("post", post != null ? post : new Post());
-        return "/dashboard";
+        return "dashboard";
     }
 }
