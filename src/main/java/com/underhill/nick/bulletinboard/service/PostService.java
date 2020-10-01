@@ -4,12 +4,13 @@ import com.underhill.nick.bulletinboard.model.Post;
 import com.underhill.nick.bulletinboard.model.User;
 import com.underhill.nick.bulletinboard.repository.PostRepository;
 import com.underhill.nick.bulletinboard.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
 
 @Service
 public class PostService {
@@ -33,14 +34,12 @@ public class PostService {
     }
 
     @Transactional
-    public List<Post> getOrderedPosts(SORT sort) {
-        List<Post> orderedList = postRepository.findAll();
+    public Page<Post> getOrderedPosts(SORT sort, int page, int size) {
         if (sort == SORT.ASC) {
-            orderedList.sort(Comparator.comparing(Post::getWhenAdd));
+            return postRepository.findAll(PageRequest.of(page, size, Sort.by("whenAdd")));
         } else {
-            orderedList.sort(Comparator.comparing(Post::getWhenAdd).reversed());
+            return postRepository.findAll(PageRequest.of(page, size, Sort.by("whenAdd").descending()));
         }
-        return orderedList;
     }
 
     public enum SORT {

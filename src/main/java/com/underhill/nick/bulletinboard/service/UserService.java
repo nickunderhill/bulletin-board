@@ -5,6 +5,7 @@ import com.underhill.nick.bulletinboard.repository.RoleRepository;
 import com.underhill.nick.bulletinboard.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -33,23 +33,33 @@ public class UserService {
     }
 
     @Transactional
-    public boolean createOrUpdateUser(User entity) {
-        if (entity.getId() != null) {
-            Optional<User> user = userRepository.findById(entity.getId());
-            if (user.isPresent()) {
-                User updateUser = user.get();
-                updateUser.setEmail(entity.getEmail());
-                updateUser.setFirstName(entity.getFirstName());
-                updateUser.setLastName(entity.getLastName());
-                updateUser.setPassword(passwordEncoder.encode(entity.getPassword()));
-                userRepository.save(updateUser);
-                return false;
-            }
+    public boolean createUser(User newUser) {
+        if (userRepository.getUserByEmail(newUser.getEmail()) != null) {
+            return false;
         }
-        entity.setRoles(roleRepository.findAllByName("USER"));
-        entity.setPassword(passwordEncoder.encode(entity.getPassword()));
-        userRepository.save(entity);
+        newUser.setRoles(roleRepository.findAllByName("USER"));
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        userRepository.save(newUser);
         return true;
+    }
+
+    @Transactional
+    public boolean update(User user) {
+        if (user.getId() != null) {
+            User updateUser = userRepository.getOne(user.getId());
+            if(!updateUser.getEmail().equals(user.getEmail())) {
+                updateUser.setEmail(user.getEmail());
+                updatePrincipal(updateUser);
+            }
+            updateUser.setFirstName(user.getFirstName());
+            updateUser.setLastName(user.getLastName());
+            if (user.getPassword().length() > 0) {
+                updateUser.setPassword(passwordEncoder.encode(user.getPassword()));
+            }
+            userRepository.save(updateUser);
+            return true;
+        }
+        return false;
     }
 
     @Transactional
@@ -63,5 +73,10 @@ public class UserService {
             return false;
         }
         return authentication.isAuthenticated();
+    }
+
+    public void updatePrincipal(User user) {
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

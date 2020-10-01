@@ -26,6 +26,32 @@
             </div>
         </div>
     </div>
+
+    <!-- pagination -->
+    <nav aria-label="Pagination" th:if="${posts.totalPages gt 0}" id="pag">
+        <ul class="pagination justify-content-center font-weight-bold">
+            <li class="page-item" th:classappend="${posts.number eq 0} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{?page={id}(id=${posts.number lt 2 ? 1 : posts.number})}"
+                   aria-label="Previous" title="Previous Page" data-toggle="tooltip">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item" th:classappend="${i eq posts.number + 1} ? 'active'"
+                th:each="i : ${#numbers.sequence( 1, posts.totalPages, 1)}">
+                <a class="page-link" th:href="@{?page={id}(id=${i})}" th:text="${i}"
+                   th:title="${'Page '+ i}" data-toggle="tooltip"></a>
+            </li>
+            <li class="page-item" th:classappend="${posts.number + 1 eq posts.totalPages} ? 'disabled'">
+                <a class="page-link"
+                   th:href="@{?page={id}(id=${posts.number + 2})}"
+                   aria-label="Next" title="Next Page" data-toggle="tooltip">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
 </div>
 
 <div th:replace="fragments/footer :: footer"></div>

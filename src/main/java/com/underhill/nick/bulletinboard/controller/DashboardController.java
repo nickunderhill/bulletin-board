@@ -1,6 +1,7 @@
 package com.underhill.nick.bulletinboard.controller;
 
 import com.underhill.nick.bulletinboard.model.Post;
+import com.underhill.nick.bulletinboard.model.User;
 import com.underhill.nick.bulletinboard.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +24,13 @@ public class DashboardController {
 
     @GetMapping
     public String renderDashboard(Model model,
-                                  @ModelAttribute("postNew") Post postNew,
+                                  @ModelAttribute("postFeedback") Post post,
+                                  @ModelAttribute("userFeedback") User user,
+                                  @ModelAttribute("successMessage") String successMessage,
                                   HttpServletRequest request) {
-        String currentUserLogin =  request.getUserPrincipal().getName();
-        model.addAttribute("user", userService.getUserByEmail(currentUserLogin));
-        model.addAttribute("post", postNew != null ? postNew : new Post());
+        String currentUserLogin = request.getUserPrincipal().getName();
+        model.addAttribute("user", user.getId() != null ? user : userService.getUserByEmail(currentUserLogin));
+        model.addAttribute("post", post != null ? post : new Post());
         return "/dashboard";
     }
 }

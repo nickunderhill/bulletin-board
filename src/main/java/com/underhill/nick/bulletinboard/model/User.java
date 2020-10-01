@@ -1,15 +1,9 @@
 package com.underhill.nick.bulletinboard.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name="first_name")
     @NotNull
@@ -32,6 +26,7 @@ public class User {
     private String lastName;
 
     @NotNull
+    @Column(unique = true)
     @Email(message = "Please, provide valid email address.")
     private String email;
 

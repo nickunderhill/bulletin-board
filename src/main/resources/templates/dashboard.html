@@ -13,10 +13,11 @@
 
     <div class="dashboard-item shadow-box">
         <h2 class="text-center">Edit profile</h2>
-        <form th:action="@{/users/edit}" th:object="${user}" method="post">
+        <form th:action="@{/users/edit}" th:object="${user}" method="post" id="profileForm">
             <div class="form-group">
+                <div th:if="${not successMessage.isEmpty()}" th:text="${successMessage}" class="alert alert-success" ></div>
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" th:field="*{email}">
+                <input type="text" class="form-control" id="email" th:field="*{email}" readonly="readonly">
                 <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-error"></div>
             </div>
             <div class="form-group">
@@ -30,18 +31,20 @@
                 <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="validation-error"></div>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
+                <label for="password">New Password</label>
                 <input type="password" class="form-control" id="password" th:field="*{password}">
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-error"></div>
             </div>
             <input type="hidden" th:field="*{id}" id="Id">
-            <button type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Submit">Edit</button>
+            <button type="submit" form="profileForm" class="btn btn-outline-primary btn-lg btn-block" value="Submit">
+                Edit
+            </button>
         </form>
     </div>
 
     <div class="dashboard-item shadow-box">
         <h2 class="text-center">New post</h2>
-        <form th:action="@{/posts/new}" th:object="${post}" method="post">
+        <form th:action="@{/posts/new}" th:object="${post}" method="post" id="postForm">
             <div class="form-group">
                 <label for="postTitle">Title</label>
                 <input type="text" class="form-control" id="postTitle" placeholder="Enter post title"
@@ -61,7 +64,9 @@
                        th:field="*{image}">
                 <div th:if="${#fields.hasErrors('image')}" th:errors="*{image}" class="validation-error"></div>
             </div>
-            <button type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Submit">Submit</button>
+            <button type="submit" form="postForm" class="btn btn-outline-primary btn-lg btn-block" value="Submit">
+                Submit
+            </button>
         </form>
     </div>
 

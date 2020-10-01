@@ -2,7 +2,6 @@ package com.underhill.nick.bulletinboard.controller;
 
 import com.underhill.nick.bulletinboard.model.Post;
 import com.underhill.nick.bulletinboard.service.PostService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,23 +23,34 @@ public class PostController {
     }
 
     @GetMapping("/")
-    public String getPosts(Model model) {
-        model.addAttribute("posts", postService.getOrderedPosts(PostService.SORT.DESC));
+    public String getPosts(HttpServletRequest request, Model model) {
+
+        int page = 0;
+        int size = 9;
+        if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+            page = Integer.parseInt(request.getParameter("page")) - 1;
+        }
+
+        if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+            size = Integer.parseInt(request.getParameter("size"));
+        }
+
+        model.addAttribute("posts", postService.getOrderedPosts(PostService.SORT.DESC, page, size));
         return "post/list";
     }
 
     @PostMapping("posts/new")
-    public String createPost(@Valid @ModelAttribute("postNew") Post postNew,
+    public String createPost(@Valid @ModelAttribute("postFeedback") Post post,
                              BindingResult postResult,
                              RedirectAttributes redirectAttributes,
                              HttpServletRequest request) {
         if (postResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("postNew", postNew);
+            redirectAttributes.addFlashAttribute("postFeedback", post);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.post", postResult);
             return "redirect:/dashboard";
         }
         String currentUserLogin = request.getUserPrincipal().getName();
-        postService.save(postNew, currentUserLogin);
+        postService.save(post, currentUserLogin);
         return "redirect:/";
     }
 }
