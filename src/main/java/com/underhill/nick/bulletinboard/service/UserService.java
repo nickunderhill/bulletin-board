@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -19,13 +23,15 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final CustomUserDetailsService customUserDetailsService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, CustomUserDetailsService customUserDetailsService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     public User getUserByEmail(String email) {
@@ -50,6 +56,7 @@ public class UserService {
             if(!updateUser.getEmail().equals(user.getEmail())) {
                 updateUser.setEmail(user.getEmail());
                 updatePrincipal(updateUser);
+                System.out.println("Updated principle");
             }
             updateUser.setFirstName(user.getFirstName());
             updateUser.setLastName(user.getLastName());
@@ -76,7 +83,9 @@ public class UserService {
     }
 
     public void updatePrincipal(User user) {
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, user.getPassword());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> updatedAuthorities = customUserDetailsService.loadUserByUsername(user.getEmail()).getAuthorities();
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getEmail(), auth.getCredentials(), updatedAuthorities);
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 }

@@ -29,13 +29,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new
                 org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(),
-                mapRolesToAuthorities(user.getRoles()));
+                getAuthorities(user.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+    private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new
                 SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
-
 
 }
