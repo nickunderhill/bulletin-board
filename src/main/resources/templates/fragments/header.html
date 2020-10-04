@@ -4,6 +4,16 @@
 
 <head th:fragment="common_header(title)">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-YGKKGZZVMT"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-YGKKGZZVMT');
+    </script>
+
     <title th:replace="${title}">Bulletin Board App</title>
 
     <meta charset="utf-8" />
