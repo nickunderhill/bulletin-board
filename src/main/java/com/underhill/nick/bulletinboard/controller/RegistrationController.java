@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -34,7 +35,8 @@ public class RegistrationController {
     @PostMapping
     public String register(@Valid @ModelAttribute("user") User user,
                            BindingResult bindingResult,
-                           Model model) {
+                           Model model,
+                           HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
             return "registration";
         }
@@ -46,6 +48,7 @@ public class RegistrationController {
             model.addAttribute("loginError", "User with this email already exists");
             return "registration";
         }
+        userService.authWithoutPassword(user);
         return "redirect:/login";
     }
 

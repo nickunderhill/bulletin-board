@@ -25,6 +25,7 @@ INSERT INTO USERS_ROLES VALUES (1,2);
 INSERT INTO USERS_ROLES VALUES (2,2);
 INSERT INTO USERS_ROLES VALUES (3,2);
 INSERT INTO USERS_ROLES VALUES (4,2);
+INSERT INTO USERS_ROLES VALUES (5,2);
 
 INSERT INTO POSTS(TITLE, DESCRIPTION, IMAGE, AUTHOR_ID, WHEN_ADD)
 VALUES ('Buy an elephant', 'Old good elephant, not expensive!', 'https://beststickers.net/image/cache/catalog/products/stickers/php-elephant-vinyl-stickers-decal-2800x1600.jpg', 1, NOW());
