@@ -5,7 +5,7 @@
 In **Bulletin Board** application users can post and view messages at bulletin board. 
 
 ## Preview
-Demo is available at Heroku: http://bulletin-board-demo.herokuapp.com/
+Demo is available at Heroku: [http://bulletin-board-demo.herokuapp.com/](http://bulletin-board-demo.herokuapp.com/?utm_source=git&utm_medium=social&utm_campaign=cv)
 
 ## Tech stack
 
