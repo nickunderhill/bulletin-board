@@ -92,3 +92,15 @@ a.btn.btn-outline-primary.my-2.my-sm-0 {
 #pag {
     margin-bottom: 75px;
 }
+
+@media screen and (max-width: 768px) {
+    #navAuthBlock {display: none}
+    .container.main, .container.login {width: 100%}
+    .dashboard {display: block}
+    .dashboard-item {width: 100%}
+    .shadow-box {box-shadow: none}
+}
+
+@media screen and (min-width: 769px)and (max-width: 992px) {
+    .container.main {margin-top: 5rem}
+}

@@ -38,11 +38,11 @@ VALUES ('No image', 'At all...', 3, NOW());
 INSERT INTO POSTS(TITLE, DESCRIPTION, IMAGE, AUTHOR_ID, WHEN_ADD)
 VALUES ('The last one', 'Really, nothing interesting on the next page.', 'https://memegenerator.net/img/instances/65507342/why-god-why.jpg', 4, NOW());
 INSERT INTO POSTS(TITLE, DESCRIPTION, IMAGE, AUTHOR_ID, WHEN_ADD)
-VALUES ('Hiring  Junior Java developers', 'At list 10 years of experience, compensation $300 + free coffee', 'https://dev.by/storage/images/78/78/55/55/derived/445103f7cc308ea5b0b3f2a521fd9753.jpg', 5, NOW());
-INSERT INTO POSTS(TITLE, DESCRIPTION, IMAGE, AUTHOR_ID, WHEN_ADD)
 VALUES ('Look!', 'The parrot!', 'https://media-cdn.tripadvisor.com/media/photo-s/09/aa/56/87/the-parrot-place.jpg', 1, NOW());
 INSERT INTO POSTS(TITLE, DESCRIPTION, IMAGE, AUTHOR_ID, WHEN_ADD)
 VALUES ('The python farm', 'Come and find your pet!', 'https://content.techgig.com/photo/77759470/learn-python-by-playing-games-on-this-platform.jpg', 4, NOW());
+INSERT INTO POSTS(TITLE, DESCRIPTION, IMAGE, AUTHOR_ID, WHEN_ADD)
+VALUES ('Hiring  Junior Java developers', 'At list 10 years of experience, compensation $300 + free coffee', 'https://dev.by/storage/images/78/78/55/55/derived/445103f7cc308ea5b0b3f2a521fd9753.jpg', 5, NOW());
 INSERT INTO POSTS(TITLE, DESCRIPTION, IMAGE, AUTHOR_ID, WHEN_ADD)
 VALUES ('Group of penguins escaped Kyiv zoo', 'Are considered armed and extremely dangerous', 'https://i.ytimg.com/vi/G603tN1i63g/maxresdefault.jpg', 2, NOW());
 INSERT INTO POSTS(TITLE, DESCRIPTION, IMAGE, AUTHOR_ID, WHEN_ADD)
