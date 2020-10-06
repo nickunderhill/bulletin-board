@@ -10,13 +10,7 @@ body {
 }
 
 div.container.main > h2 {
-    text-align: center !important;
-    background-color: white;
     text-transform: uppercase;
-    color: black;
-    padding: 5px;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, .125);
     font-size: 21px;
 }
 
@@ -31,7 +25,7 @@ img.card-img-top {
 }
 
 .login {
-    width: 30%;
+    width: 35%;
     margin-top: 5%;
 }
 
@@ -97,4 +91,26 @@ a.btn.btn-outline-primary.my-2.my-sm-0 {
 }
 #pag {
     margin-bottom: 75px;
+}
+
+@media screen and (max-width: 768px) {
+    #navAuthBlock {display: none}
+    .container.main, .container.login {width: 100%}
+    .dashboard {display: block}
+    .dashboard-item {width: 100%}
+    .shadow-box {box-shadow: none}
+}
+
+@media screen and (min-width: 769px)and (max-width: 1140px) {
+    .container.main {margin-top: 5rem}
+    .container.login {width: 50%; margin-top: 5rem}
+}
+
+@media screen and (min-width: 769px) {
+    #mobileMenu {display: none !important;}
+}
+
+@media screen and (min-width: 769px)and (max-width: 1200px) {
+    .container.main {margin-top: 5rem}
+    .container.login {width: 50%; margin-top: 5rem}
 }

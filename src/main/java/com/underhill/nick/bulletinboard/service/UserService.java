@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,6 +84,23 @@ public class UserService {
         return authentication.isAuthenticated();
     }
 
+    /**
+     * Automatically authenticates user in the application.
+     * @param user - User object which will be authenticated
+     */
+    public void authWithoutPassword(User user){
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                user.getEmail(),
+                null,
+                customUserDetailsService.loadUserByUsername(user.getEmail()).getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    /**
+     * Updates given user's Security context.
+     * This method should be used to immediately apply changes in the User object email or roles.
+     * @param user - to update User
+     */
     public void updatePrincipal(User user) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> updatedAuthorities = customUserDetailsService.loadUserByUsername(user.getEmail()).getAuthorities();
