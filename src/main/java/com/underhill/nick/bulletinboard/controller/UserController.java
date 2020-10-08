@@ -2,6 +2,7 @@ package com.underhill.nick.bulletinboard.controller;
 
 import com.underhill.nick.bulletinboard.model.User;
 import com.underhill.nick.bulletinboard.service.UserService;
+import com.underhill.nick.bulletinboard.service.impl.UserServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

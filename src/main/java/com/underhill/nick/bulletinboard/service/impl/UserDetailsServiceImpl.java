@@ -1,4 +1,4 @@
-package com.underhill.nick.bulletinboard.service;
+package com.underhill.nick.bulletinboard.service.impl;
 
 import com.underhill.nick.bulletinboard.model.Role;
 import com.underhill.nick.bulletinboard.model.User;
@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;

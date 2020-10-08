@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -19,8 +18,13 @@ import javax.validation.Valid;
 @RequestMapping("/registration")
 public class RegistrationController {
 
-    @Autowired
+
     UserService userService;
+
+    @Autowired
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping
     public String register(HttpServletRequest request,

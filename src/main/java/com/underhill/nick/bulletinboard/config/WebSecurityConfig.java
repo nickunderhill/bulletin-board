@@ -1,6 +1,6 @@
 package com.underhill.nick.bulletinboard.config;
 
-import com.underhill.nick.bulletinboard.service.CustomUserDetailsService;
+import com.underhill.nick.bulletinboard.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private CustomUserDetailsService userDetailsService;
+    private UserDetailsServiceImpl userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
