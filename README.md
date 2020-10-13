@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-In **Bulletin Board** application users can post and view messages at bulletin board. 
+In the **Bulletin Board** application, users can post and view messages at the bulletin board.
 
 ## Preview
 Demo is available at Heroku: [http://bulletin-board-demo.herokuapp.com/](http://bulletin-board-demo.herokuapp.com/?utm_source=git&utm_medium=social&utm_campaign=cv)
